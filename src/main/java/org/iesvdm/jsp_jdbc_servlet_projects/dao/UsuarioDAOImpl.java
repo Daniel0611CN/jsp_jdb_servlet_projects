@@ -23,12 +23,13 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
 
             s = conn.createStatement();
 
-            rs = s.executeQuery("SELECT * FROM usuario");
+            rs = s.executeQuery("SELECT * FROM usuarios");
             while (rs.next()) {
                 Usuario usuario = new Usuario();
 
-                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
                 usuario.setNombreUsuario(rs.getString("nombreUsuario"));
+                usuario.setPswdUsuario(rs.getString("pswdUsuario"));
                 listUser.add(usuario);
             }
         } catch (SQLException | ClassNotFoundException e) {

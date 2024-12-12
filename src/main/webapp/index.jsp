@@ -8,12 +8,14 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<form method="get" action="ValidarDatosUsuarios">
-    <input type="text" id="nombre" placeholder="Introduzca el nombre">
+<form method="post" action="ValidarDatosUsuarios">
+    <input type="text" name="nombre" placeholder="Introduzca el nombre">
     <br><br>
-    <input type="password" id="pswd" placeholder="Introduzca la contraseña">
+    <input type="password" name="pswd" placeholder="Introduzca la contraseña">
     <br><br>
     <input type="submit" value="Aceptar">
 </form>
+<br><br>
+<button><a href="ListarDatosUsuarios">Listar Usuarios</a></button>
 </body>
 </html>
