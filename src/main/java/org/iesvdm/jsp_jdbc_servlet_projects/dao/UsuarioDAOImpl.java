@@ -8,7 +8,6 @@ import java.util.List;
 
 public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
 
-
     @Override
     public List<Usuario> getAll() {
 

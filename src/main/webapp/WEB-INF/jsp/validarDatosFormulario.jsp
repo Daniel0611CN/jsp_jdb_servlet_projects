@@ -34,7 +34,13 @@
                 isInListado = true;
     %>
         <h3>Usuario <%= request.getParameter("nombre") %> añadido correctamente</h3>
-        <button><a href="ValorAlturaPiramide">Formulario Piramide</a></button>
+
+        <form method="post" action="FormularioPiramide">
+            <input type="hidden" name="idUsuario" value="<%= listado.getString("idUsuario") %>">
+            <input type="hidden" name="nombreUsuario" value="<%= nombreListado %>">
+            <input type="hidden" name="pswdUsuario" value="<%= pswdListado %>">
+            <input type="submit" value="Formulario Piramide">
+        </form>
     <%
             }
         }

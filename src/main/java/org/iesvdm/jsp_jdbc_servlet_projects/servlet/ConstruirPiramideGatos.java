@@ -13,15 +13,20 @@ import org.iesvdm.jsp_jdbc_servlet_projects.model.Usuario;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ValorAlturaPiramide", value = "/ValorAlturaPiramide")
-public class ValorAlturaPiramide extends HttpServlet {
+@WebServlet(name = "ConstruirPiramideGatos", value = "/ConstruirPiramideGatos")
+public class ConstruirPiramideGatos extends HttpServlet {
 
     private UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioPiramide.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/piramideGatos.jsp");
 
         List<Usuario> listado = this.usuarioDAO.getAll();
         request.setAttribute("listado", listado);
