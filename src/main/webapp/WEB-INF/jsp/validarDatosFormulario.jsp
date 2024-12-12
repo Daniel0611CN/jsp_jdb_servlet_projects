@@ -34,7 +34,7 @@
                 isInListado = true;
     %>
         <h3>Usuario <%= request.getParameter("nombre") %> añadido correctamente</h3>
-        <button><a href="index.jsp">Volver a Inicio</a></button>
+        <button><a href="ValorAlturaPiramide">Formulario Piramide</a></button>
     <%
             }
         }
