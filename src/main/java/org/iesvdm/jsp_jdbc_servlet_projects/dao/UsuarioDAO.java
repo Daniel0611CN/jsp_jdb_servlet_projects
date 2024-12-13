@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface UsuarioDAO {
 
+    public void create(Usuario usuario);
     public List<Usuario> getAll();
+    public void update(Usuario usuario);
+    public void delete(int id);
 
 }
