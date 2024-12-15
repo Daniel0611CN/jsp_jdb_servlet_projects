@@ -6,11 +6,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.iesvdm.jsp_jdbc_servlet_projects.Hass;
 import org.iesvdm.jsp_jdbc_servlet_projects.dao.UsuarioDAO;
 import org.iesvdm.jsp_jdbc_servlet_projects.dao.UsuarioDAOImpl;
 import org.iesvdm.jsp_jdbc_servlet_projects.model.Usuario;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,10 +48,11 @@ public class GrabarUsuariosServlet extends HttpServlet {
             }
 
             if (!inListado) {
+                this.usuarioDAO.create(usuario);
                 request.setAttribute("listado", listado);
                 request.setAttribute("newUserID", usuario.getIdUsuario());
                 dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuariosAdmin.jsp");
-            } else {
+            } else if (inListado){
                 request.setAttribute("error", "Error de validación!");
                 dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioGrabarUsuario.jsp");
             }

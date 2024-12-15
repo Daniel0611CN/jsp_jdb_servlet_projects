@@ -37,6 +37,8 @@ public class EditarUsuariosServlet extends HttpServlet {
 
             this.usuarioDAO.update(usuario);
 
+
+
             List<Usuario> listado = this.usuarioDAO.getAll();
             request.setAttribute("listado", listado);
 

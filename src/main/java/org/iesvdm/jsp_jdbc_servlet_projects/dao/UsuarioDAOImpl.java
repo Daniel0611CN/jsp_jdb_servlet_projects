@@ -1,7 +1,9 @@
 package org.iesvdm.jsp_jdbc_servlet_projects.dao;
 
+import org.iesvdm.jsp_jdbc_servlet_projects.Hass;
 import org.iesvdm.jsp_jdbc_servlet_projects.model.Usuario;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
 
             int idx = 1;
             ps.setString(idx++, usuario.getNombreUsuario());
-            ps.setString(idx, usuario.getPswdUsuario());
+            ps.setString(idx, Hass.hashPassword(usuario.getPswdUsuario()));
 
             int rows = ps.executeUpdate();
             if (rows == 0)
@@ -38,6 +40,8 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
 
         } catch (SQLException | ClassNotFoundException  e) {
             e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         } finally {
             closeDb(conn, ps, rs);
         }
@@ -87,7 +91,7 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
             ps = conn.prepareStatement("UPDATE usuarios SET nombreUsuario = ?, pswdUsuario = ?  WHERE idUsuario = ?");
             int idx = 1;
             ps.setString(idx++, usuario.getNombreUsuario());
-            ps.setString(idx++, usuario.getPswdUsuario());
+            ps.setString(idx++, Hass.hashPassword(usuario.getPswdUsuario()));
             ps.setInt(idx, usuario.getIdUsuario());
 
             int rows = ps.executeUpdate();
@@ -97,6 +101,8 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         } finally {
             closeDb(conn, ps, rs);
         }
