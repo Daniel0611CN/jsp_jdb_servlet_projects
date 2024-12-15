@@ -56,8 +56,6 @@ public class UtilServlet {
         String passwordUsuario = null;
 
         try {
-            request.getParameter("idUsuario");
-//            idUsuario = request.getParameter("")
             //UTILIZO LOS CONTRACTS DE LA CLASE Objects PARA LA VALIDACIÓN
             //             v---- LANZA NullPointerException SI EL PARÁMETRO ES NULL
             Objects.requireNonNull(request.getParameter("nombreUsuarioEditar"));
@@ -79,12 +77,32 @@ public class UtilServlet {
             if (request.getParameter("pswdUsuarioEditar").isBlank()) throw new RuntimeException("Parámetro vacío o todo espacios blancos.");
             passwordUsuario = request.getParameter("pswdUsuarioEditar");
 
-            return Optional.of(new Usuario(-1, nombreUsuario, passwordUsuario));
+            return Optional.of(new Usuario(Integer.parseInt(codigoStr), nombreUsuario, passwordUsuario));
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         //FIN CÓDIGO DE VALIDACIÓN
+        return Optional.empty();
+    }
+
+    public static Optional<Integer> validaBorrar(HttpServletRequest request) {
+        boolean valida = true;
+
+        // Recepcion del parametro enviado por el formulario de borrar
+        String codigoStr = request.getParameter("idUsuario");
+
+        // Valida Parametro
+        Integer codigo = null;
+
+        try {
+            // Recepcion del parametro enviado por el formulario de borrado
+            codigo = Integer.parseInt(codigoStr);
+            return Optional.of(codigo);
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+
         return Optional.empty();
     }
 

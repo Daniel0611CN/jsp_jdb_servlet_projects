@@ -11,7 +11,7 @@
     <title>Formulario Graba Socio</title>
 </head>
 <body>
-    <form method="post" action="GrabaUsuariosServlet">
+    <form method="post" action="GrabarUsuariosServlet">
         <input type="text" name="nombreUsuarioCreado" placeholder="Introduce un nombre">
         <br><br>
         <input type="password" name="pswdUsuarioCreado" placeholder="Introduce una contraseña">

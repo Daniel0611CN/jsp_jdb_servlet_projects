@@ -30,7 +30,7 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
 
             int rows = ps.executeUpdate();
             if (rows == 0)
-                System.out.println("INSERT de socio con 0 filas insertadas.");
+                System.out.println("INSERT de usuario con 0 filas insertadas.");
 
             rsGenKeys = ps.getGeneratedKeys();
             if (rsGenKeys.next())
@@ -93,7 +93,7 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
             int rows = ps.executeUpdate();
 
             if (rows == 0)
-                System.out.println("Update de socio con 0 registros actualizados.");
+                System.out.println("Update de usuario con 0 registros actualizados.");
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -104,6 +104,25 @@ public class UsuarioDAOImpl extends AbstractDAOImpl implements UsuarioDAO {
 
     @Override
     public void delete(int id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
+        try {
+            conn = connectDB();
+
+            ps = conn.prepareStatement("DELETE FROM usuarios WHERE idUsuario = ?");
+            int idx = 1;
+            ps.setInt(idx, id);
+
+            int rows = ps.executeUpdate();
+
+            if (rows == 0)
+                System.out.println("Delete de usuario con 0 registros eliminados.");
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(conn, ps, rs);
+        }
     }
 }

@@ -11,18 +11,17 @@ import org.iesvdm.jsp_jdbc_servlet_projects.dao.UsuarioDAOImpl;
 import org.iesvdm.jsp_jdbc_servlet_projects.model.Usuario;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet(name = "GrabaUsuariosServlet", value = "/GrabaUsuariosServlet")
-public class GrabaUsuariosServlet extends HttpServlet {
+@WebServlet(name = "GrabarUsuariosServlet", value = "/GrabarUsuariosServlet")
+public class GrabarUsuariosServlet extends HttpServlet {
 
     private UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuariosAdmin.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioGrabarUsuario.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -44,7 +43,7 @@ public class GrabaUsuariosServlet extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuariosAdmin.jsp");
         } else {
             request.setAttribute("error", "Error de validación!");
-            dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioGrabaUsuario.jsp");
+            dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioGrabarUsuario.jsp");
         }
 
         dispatcher.forward(request, response);

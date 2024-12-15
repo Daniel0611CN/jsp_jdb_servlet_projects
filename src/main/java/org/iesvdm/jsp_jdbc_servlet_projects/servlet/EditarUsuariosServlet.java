@@ -6,13 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jdk.jshell.execution.Util;
 import org.iesvdm.jsp_jdbc_servlet_projects.dao.UsuarioDAO;
 import org.iesvdm.jsp_jdbc_servlet_projects.dao.UsuarioDAOImpl;
 import org.iesvdm.jsp_jdbc_servlet_projects.model.Usuario;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,30 +22,30 @@ public class EditarUsuariosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuariosAdmin.jsp");
-        String codigoStr = request.getParameter("codigo");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioEditarUsuario.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
+        Optional<Usuario> optionalUsuario = UtilServlet.validaEditar(request);
 
-        Optional<Usuario> optionalUser = UtilServlet.validaEditar(request);
+        if (optionalUsuario.isPresent()) {
 
-        if (optionalUser.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
 
-            Usuario usuario = optionalUser.get();
             this.usuarioDAO.update(usuario);
 
-            List<Usuario> listado =this.usuarioDAO.getAll();
+            List<Usuario> listado = this.usuarioDAO.getAll();
             request.setAttribute("listado", listado);
 
             dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuariosAdmin.jsp");
         } else {
-            request.setAttribute("error", "Error de validación!");
+            request.setAttribute("error", "Error de validación");
             dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioEditarUsuario.jsp");
         }
+
 
         dispatcher.forward(request, response);
     }

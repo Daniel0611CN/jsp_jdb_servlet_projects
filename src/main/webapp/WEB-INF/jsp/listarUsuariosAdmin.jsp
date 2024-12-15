@@ -38,10 +38,10 @@
 
         // UTILIZAR STATEMENT SÓLO EN QUERIES NO PARAMETRIZADAS.
         Statement s = conexion.createStatement();
-        ResultSet listado = s.executeQuery("SELECT * FROM usuarios");
+        ResultSet listado = s.executeQuery("SELECT * FROM users.usuarios");
     %>
     <div>
-        <form method="post" action="GrabaUsuariosServlet">
+        <form method="get" action="GrabarUsuariosServlet">
             <input class="btn btn-primary" type="submit" value="Crear Usuario">
         </form>
     </div>
@@ -63,18 +63,16 @@
             <td><%= listado.getString("nombreUsuario") %></td>
             <td><%= listado.getString("pswdUsuario") %></td>
             <td>
-                <form class="d-inline" method="post" action="EditarUsuariosServlet">
-                    <input type="text" name="codigo" value="<%= listado.getInt("idUsuario") %>"/>
-                    <input type="text" name="nombreUsuarioEditar" value="<%= listado.getString("nombreUsuario") %>"/>
-                    <input type="text" name="pswdUsuarioEditar" value="<%= listado.getString("pswdUsuario") %>" />
+                <form class="d-inline" method="get" action="EditarUsuariosServlet">
+                    <input type="hidden" name="idUsuario" value="<%= listado.getInt("idUsuario") %>"/>
+                    <input type="hidden" name="nombreUsuarioEditar" value="<%= listado.getString("nombreUsuario") %>"/>
+                    <input type="hidden" name="pswdUsuarioEditar" value="<%= listado.getString("pswdUsuario") %>" />
                     <input class="btn btn-primary"  type="submit" value="Editar">
                 </form>
             </td>
             <td>
-                <form class="d-inline" method="get" action="BorrarUsuariosServlet">
-                    <input type="hidden" name="idUsuario"/>
-                    <input type="hidden" name="nombreUsuarioEditar"/>
-                    <input type="hidden" name="pswdUsuarioEditar"/>
+                <form class="d-inline" method="post" action="BorrarUsuariosServlet">
+                    <input type="hidden" name="idUsuario" value="<%= listado.getInt("idUsuario") %>"/>
                     <input class="btn btn-primary"  type="submit" value="Borrar">
                 </form>
             </td>
