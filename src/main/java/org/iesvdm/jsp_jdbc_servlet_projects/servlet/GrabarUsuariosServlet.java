@@ -29,18 +29,30 @@ public class GrabarUsuariosServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
 
+        boolean inListado = false;
+
         Optional<Usuario> optionalUser = UtilServlet.validaGrabar(request);
 
         if (optionalUser.isPresent()) {
 
-                Usuario usuario = optionalUser.get();
-                this.usuarioDAO.create(usuario);
+            List<Usuario> listado = this.usuarioDAO.getAll();
 
-                List<Usuario> listado = this.usuarioDAO.getAll();
+            Usuario usuario = optionalUser.get();
+
+            for (int i = 0; i < listado.size(); i++) {
+                if (listado.get(i).getNombreUsuario().equals(usuario.getNombreUsuario())) {
+                    inListado = true;
+                }
+            }
+
+            if (!inListado) {
                 request.setAttribute("listado", listado);
                 request.setAttribute("newUserID", usuario.getIdUsuario());
-
                 dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/listarUsuariosAdmin.jsp");
+            } else {
+                request.setAttribute("error", "Error de validación!");
+                dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioGrabarUsuario.jsp");
+            }
         } else {
             request.setAttribute("error", "Error de validación!");
             dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/formularioGrabarUsuario.jsp");

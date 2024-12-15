@@ -38,6 +38,7 @@ public class UtilServlet {
             if (request.getParameter("pswdUsuarioCreado").isBlank()) throw new RuntimeException("Parámetro vacío o todo espacios blancos.");
             passwordUsuario = request.getParameter("pswdUsuarioCreado");
 
+
             return Optional.of(new Usuario(-1, nombreUsuario, passwordUsuario));
 
         } catch (Exception ex) {
